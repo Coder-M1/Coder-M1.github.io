@@ -1,0 +1,117 @@
+
+p {
+	color: yellow;
+	font-size: 30px;
+}
+
+.list {
+	color: red;
+	font-size: 15px;
+}
+
+.description {
+	color: blue;
+	font-size: 30px;
+}
+
+#body {
+	background-color: white;
+}
+#button {
+	height: 50px;
+	width: 100px;
+	color: white;
+	background-color: black;
+	border-radius: 15px; 
+}
+#banner {
+	height: 100px;
+	width: 200px;
+	border: 10px;
+	background-color: blue;
+	color: white;
+	margin-bottom: 20px;
+}
+#footer {
+	height: 100px;
+	width: 200px;
+	border: 10px;
+	background-color: blue;
+	color: white;
+}
+#triviaList {
+	height: 300px;
+	width: 500px;
+	border: 10px solid blue;
+	border-radius: 20px;
+	padding: 10px;
+	background-color: orange;
+}
+.descriptionYou {
+	color: red;
+}
+#one {
+	height: 150px;
+	width: 150px;
+	background-color: red;
+	display: inline-block;
+	position: absolute;
+	z-index: 1;
+}
+#two {
+	height: 150px;
+	width: 150px;
+	background-color: green;
+	display: inline-block;
+	position: fixed;
+	left: 25%;
+	z-index: 2;
+}
+#three {
+	height: 150px;
+	width: 150px;
+	background-color: blue;
+	display: inline-block;
+	position: relative;
+	top: 750px;
+}
+#background {
+	height: 2048px;
+	width: 100px;
+	background-color: orange;
+}
+.navitem {
+	list-style-type: none;
+	display: inline;
+	margin-right: 3em;
+	padding: 2px 5px;
+}
+#navmenu {
+	text-align: center;
+	background-color: white;
+	color: white;
+}
+a:link {
+	color: green;
+}
+a:visited {
+	color: purple;
+}
+a:hover {
+	color: red;
+}
+a:active {
+	color:blue;
+}
+.rightside {
+	float: right;
+	width: 40%;
+}
+.leftside {
+	float: left;
+	width: 60%;
+
+}
+.clearfloat {
+	clear: all;
+}
