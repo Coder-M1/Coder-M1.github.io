@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title> Win </title>
+		<script src="https://simplycodingcourses.com/files/simplyjs/simply.js"></script>
+		<script>
+			function start(){
+				sjs.open();
+				var background = new sjs.Image("Images/background.png");
+				background.setSize(sjs.getWidth(), sjs.getHeight());
+
+				var Win = new sjs.Text("You Win!", 28, "white");
+
+				var replayBtn = new sjs.Button("Play Again?", function(){
+					window.location = "fish.html";
+				});
+
+				var menuBtn = new sjs.Button("Menu", function(){
+					window.location = "index.html";
+				});
+
+				replayBtn.center().offset(0, -50);
+				menuBtn.center().offset(0, 50);
+				Win.centerH().offset(0, 20);
+
+
+
+			}
+		</script>
+	</head>
+	<body onload="start()">
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>
