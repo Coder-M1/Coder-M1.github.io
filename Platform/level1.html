@@ -1,0 +1,165 @@
+<html>
+	<head>
+		<title> Platform Game </title>
+		<script src="https://simplycodingcourses.com/files/simply.js"></script>
+		<script>
+
+			var level = [];
+
+			function start(){
+				sjs.open("target",800,500);
+				var background = new sjs.Image("Images/background.png")
+				background.setSize(2500, 500);
+				sjs.loadImageArray('[{"width":136,"height":30,"x":290,"y":299,"sx":0,"sy":0,"topSpeed":10,"src":"Images/platform.png","alt":"add text","type":"platform","friction":0.05,"classType":"Image"}]');
+
+			//buttons
+
+
+			//player
+				var player = new sjs.Image("Images/r_idle.png");
+				player.type = "player";
+				player.setSize(85, 93);
+				player.setGravity(3)
+				player.bottom().offset(30, 0);
+				player.friction = .3;
+				sjs.scrollable(player, background);
+				player.noBounds = true;
+
+			//movement for player
+
+				var jumping = false
+
+				var r_images = ["Images/r_walk-0.png", "Images/r_walk-1.png", "Images/r_walk-2.png", "Images/r_walk-3.png", "Images/r_walk-4.png", "Images/r_walk-5.png", "Images/r_walk-6.png", "Images/r_walk-7.png"];
+
+				var l_images = ["Images/l_walk-0.png", "Images/l_walk-1.png", "Images/l_walk-2.png", "Images/l_walk-3.png", "Images/l_walk-4.png", "Images/l_walk-5.png", "Images/l_walk-6.png", "Images/l_walk-7.png"];
+				var right = true
+				var rightImage = 0
+				var leftImage = 0
+
+				sjs.keyDown(RIGHT_KEY, function(){
+					right = true;
+					if (rightImage == 7){
+						rightImage = 0;
+					}
+					rightImage = rightImage + 1;
+					leftImage = 0;
+					player.pushRight(3);
+					if (jumping == false){
+						player.setImage(r_images[rightImage]);
+					}
+
+				});
+
+				sjs.keyDown(LEFT_KEY, function(){
+					right = false;
+					if (leftImage == 7){
+						leftImage = 0;
+					}
+					leftImage = leftImage + 1;
+					rightImage = 0;
+					player.pushLeft(3);
+					if (jumping == false){
+						player.setImage(l_images[leftImage]);
+					}
+
+				});
+
+			//player jump
+				var canJump = true;
+				sjs.keyDown(UP_KEY, function(){
+					jumping = true
+					if (canJump == true){
+						canJump = false;
+						player.pushUp(55);
+						if (right == true){
+							player.setImage("Images/r_jump.png");
+							rightImage = 8
+						} else {
+							player.setImage("Images/l_jump.png");
+							leftImage = 8
+						}
+					}
+
+				});
+
+				sjs.onHit("player", "bottom_screen", function(x,y){
+					sjs.stoppedBy(x,y);
+					jumping = false
+					if (canJump == false){
+						canJump = true;
+						rightImage = 0;
+						leftImage = 0;
+					}
+					if (right == true){
+						player.setImage("Images/r_idle.png");
+					} else {
+						player.setImage("Images/l_idle.png");
+					}
+
+				});
+				sjs.onHit("player", ["right_screen", "left_screen", "top_screen"], function(x,y){
+					sjs.stoppedBy(x,y)
+				
+
+				if(l_track >= 8){
+					player.setImage("Images/l_jump.png");
+				}
+
+				}); 
+
+			// collisions
+				sjs.onHit("player", "platform", function(x,y){
+					sjs.stoppedBy(x,y);
+					if (canJump == false && x.y < y.y-85){
+						canJump = true
+						jumping = false
+						rightImage = 0
+						leftImage = 0
+						if (right == true){
+							player.setImage("Images/r_idle.png");
+						} else {
+							player.setImage("Images/l_idle.png");
+						}
+					}
+				});
+
+				canShoot = false;
+				sjs.onHit("player", "powerUp", function(x,y){
+					canShoot = true;
+					y.destroy();
+				});
+
+				sjs.keyDown(DOWN_KEY, function(){
+					if(canShoot == true){
+						canShoot = false;
+						var laser = new sjs.Image("Images/laser.png");
+						laser.type = "laser";
+						laser.setSize(50,25);
+						laser.friction= 0;
+						laser.noBounds= true;
+						if(right == true){
+							laser.moveTo(player.getX()+44,player.getY()+7);
+							laser.pushRight(25.5);
+						} else {
+							laser.moveTo(player.getX()+-60,player.getY()+7);
+							laser.pushLeft(25.5);
+						}
+						setTimeout(function(){
+						canShoot = true;
+						},1500);
+						}
+				});
+
+			} //end start
+
+		</script>
+	</head>
+	<body onload="start()">
+		<h1> Platform Game </h1>
+		<center>
+			<input type="image" src="Images/platform.png" onclick="platform()">
+		</center>
+
+		<div id="target" style="margin:auto;background:grey;"></div>
+	</body>
+</html>
